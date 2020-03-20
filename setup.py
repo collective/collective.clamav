@@ -21,6 +21,7 @@ setup(
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Plone",
+        "Framework :: Plone :: 4.3",
         "Framework :: Plone :: 5.0",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
@@ -40,7 +41,7 @@ setup(
     install_requires=[
         'clamd',
         'plone.api',
-        'Products.GenericSetup>=1.8.2',
+        'Products.GenericSetup',
         'setuptools',
         'z3c.jbot',
         'plone.app.registry',
