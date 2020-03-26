@@ -21,6 +21,12 @@ clamdConnectionType = SimpleVocabulary(
 class IAVScannerSettings(Interface):
     """ Schema for the clamav settings
     """
+    clamav_enabled = schema.Bool(
+        title=_(u"Scanning enabled"),
+        description=_(u"If not set, no virus scanning will be done"),
+        default=True,
+    )
+
     clamav_connection = schema.Choice(
         title=_(u"Connection type to clamd"),
         description=_(u"Choose whether clamd is accessible through local "

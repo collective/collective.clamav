@@ -19,8 +19,8 @@ def _scanBuffer(buffer):
     #     return ''
 
     registry = getUtility(IRegistry)
-    settings = registry.forInterface(IAVScannerSettings)
-    if settings is None:
+    settings = registry.forInterface(IAVScannerSettings, check=False)
+    if settings is None or not settings.clamav_enabled:
         return ''
     scanner = getUtility(IAVScanner)
 
