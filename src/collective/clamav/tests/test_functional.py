@@ -13,6 +13,7 @@ from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, TEST_USER_PASSWORD
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
+import transaction
 import unittest
 
 
@@ -92,6 +93,7 @@ class TestIntegration(unittest.TestCase):
     def test_disable_scanning(self):
         registry = getUtility(IRegistry)
         registry.forInterface(IAVScannerSettings).clamav_enabled = False
+        transaction.commit()
 
         # Repeat test_atvirusimage but expect no scan
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
@@ -103,5 +105,5 @@ class TestIntegration(unittest.TestCase):
         control.value = StringIO(image_data + EICAR)
         self.browser.getControl('Save').click()
 
-        self.assertTrue('Changes saved' in self.browser.contents)
+        self.assertTrue('Item created' in self.browser.contents)
         self.assertFalse('Eicar-Test-Signature' in self.browser.contents)
