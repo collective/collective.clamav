@@ -4,7 +4,7 @@ from StringIO import StringIO
 
 from collective.clamav.interfaces import IAVScannerSettings
 from collective.clamav.testing import EICAR
-from collective.clamav.testing import AVMOCK_FUNCTIONAL_TESTING  # noqa
+from collective.clamav.testing import AVMOCK_DX_FUNCTIONAL_TESTING
 from collective.clamav import tests
 
 from plone.testing.z2 import Browser
@@ -23,9 +23,9 @@ def getFileData(filename):
     return open(filename, 'r').read()
 
 
-class TestIntegration(unittest.TestCase):
+class TestDexterityFunctional(unittest.TestCase):
 
-    layer = AVMOCK_FUNCTIONAL_TESTING
+    layer = AVMOCK_DX_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']
@@ -48,7 +48,7 @@ class TestIntegration(unittest.TestCase):
         from plone.protect import auto
         auto.CSRF_DISABLED = False
 
-    def test_atvirusfile(self):
+    def test_dxvirusfile(self):
         # Test if a virus-infected file gets caught by the validator
         self.browser.open(
             self.portal.absolute_url() + '/virus-folder/++add++File')
@@ -67,7 +67,7 @@ class TestIntegration(unittest.TestCase):
         self.browser.getControl('Save').click()
         self.assertTrue('Item created' in self.browser.contents)
 
-    def test_atvirusimage(self):
+    def test_dxvirusimage(self):
         # Test if a virus-infected image gets caught by the validator
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.browser.open(
