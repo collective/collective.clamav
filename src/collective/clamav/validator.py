@@ -14,9 +14,9 @@ logger = logging.getLogger('collective.clamav')
 
 
 def _scanBuffer(buffer):
-    # if Globals.DevelopmentMode:  # pragma: no cover
-    #     logger.warn('Skipping virus scan in development mode.')
-    #     return ''
+    if Globals.DevelopmentMode:  # pragma: no cover
+        logger.warn('Skipping virus scan in development mode.')
+        return ''
 
     registry = getUtility(IRegistry)
     settings = registry.forInterface(IAVScannerSettings, check=False)
