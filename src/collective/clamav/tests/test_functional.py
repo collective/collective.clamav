@@ -2,14 +2,18 @@
 from os.path import dirname, join
 from StringIO import StringIO
 
+from collective.clamav.interfaces import IAVScannerSettings
 from collective.clamav.testing import EICAR
-from collective.clamav.testing import AVMOCK_FUNCTIONAL_TESTING  # noqa
+from collective.clamav.testing import AVMOCK_DX_FUNCTIONAL_TESTING
 from collective.clamav import tests
 
 from plone.testing.z2 import Browser
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, TEST_USER_PASSWORD
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
 
+import transaction
 import unittest
 
 
@@ -19,9 +23,9 @@ def getFileData(filename):
     return open(filename, 'r').read()
 
 
-class TestIntegration(unittest.TestCase):
+class TestDexterityFunctional(unittest.TestCase):
 
-    layer = AVMOCK_FUNCTIONAL_TESTING
+    layer = AVMOCK_DX_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']
@@ -44,7 +48,7 @@ class TestIntegration(unittest.TestCase):
         from plone.protect import auto
         auto.CSRF_DISABLED = False
 
-    def test_atvirusfile(self):
+    def test_dxvirusfile(self):
         # Test if a virus-infected file gets caught by the validator
         self.browser.open(
             self.portal.absolute_url() + '/virus-folder/++add++File')
@@ -63,7 +67,7 @@ class TestIntegration(unittest.TestCase):
         self.browser.getControl('Save').click()
         self.assertTrue('Item created' in self.browser.contents)
 
-    def test_atvirusimage(self):
+    def test_dxvirusimage(self):
         # Test if a virus-infected image gets caught by the validator
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.browser.open(
@@ -85,3 +89,21 @@ class TestIntegration(unittest.TestCase):
         control.value = StringIO(image_data)
         self.browser.getControl('Save').click()
         self.assertTrue('Item created' in self.browser.contents)
+
+    def test_disable_scanning(self):
+        registry = getUtility(IRegistry)
+        registry.forInterface(IAVScannerSettings).clamav_enabled = False
+        transaction.commit()
+
+        # Repeat test_atvirusimage but expect no scan
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.browser.open(
+            self.portal.absolute_url() + '/virus-folder/++add++Image')
+        control = self.browser.getControl(name='form.widgets.image')
+        image_data = getFileData('image.png')
+        control.filename = 'virus.png'
+        control.value = StringIO(image_data + EICAR)
+        self.browser.getControl('Save').click()
+
+        self.assertTrue('Item created' in self.browser.contents)
+        self.assertFalse('Eicar-Test-Signature' in self.browser.contents)

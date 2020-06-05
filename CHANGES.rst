@@ -4,7 +4,8 @@ Changelog
 2.0a3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add Plone 4.3 compatability. [djowett-ftw]
+- Add a setting to disable virus scanning (Defaults to true). [djowett-ftw]
 
 
 2.0a2 (2016-09-12)
