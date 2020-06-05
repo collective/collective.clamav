@@ -11,6 +11,11 @@ long_description = '\n\n'.join([
     open('CHANGES.rst').read(),
 ])
 
+tests_require = [
+    'plone.app.testing',
+    'plone.app.contenttypes',
+    'plone.app.robotframework[debug]',
+]
 
 setup(
     name='collective.clamav',
@@ -21,6 +26,7 @@ setup(
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Plone",
+        "Framework :: Plone :: 4.3",
         "Framework :: Plone :: 5.0",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
@@ -39,22 +45,17 @@ setup(
     zip_safe=False,
     install_requires=[
         'clamd',
+        'Plone',
+        'archetypes.schemaextender',
         'plone.api',
-        'Products.GenericSetup>=1.8.2',
+        'Products.GenericSetup',
         'setuptools',
         'z3c.jbot',
         'plone.app.registry',
     ],
     extras_require={
-        'test': [
-            'plone.app.testing',
-            # Plone KGS does not use this version, because it would break
-            # Remove if your package shall be part of coredev.
-            # plone_coredev tests as of 2016-04-01.
-            'plone.testing>=5.0.0',
-            'plone.app.contenttypes',
-            'plone.app.robotframework[debug]',
-        ],
+        'test': tests_require,
+        'tests': tests_require,
     },
     entry_points="""
     [z3c.autoinclude.plugin]

@@ -5,6 +5,7 @@ from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import PLONE_FIXTURE
 from plone.testing import z2
 
 import collective.clamav
@@ -96,25 +97,30 @@ class AVFixture(PloneSandboxLayer):
         setRoles(portal, TEST_USER_ID, ['Member'])
 
 
-AV_FIXTURE = AVFixture()
+
+AV_DX_FIXTURE = AVFixture(name="AV_DX_Fixture")
+AV_AT_FIXTURE = AVFixture(bases=(PLONE_FIXTURE, ), name="AV_AT_Fixture")
 
 
 class AVMockFixture(PloneSandboxLayer):
 
-    defaultBases = (AV_FIXTURE, )
+    defaultBases = (AV_DX_FIXTURE, )
 
     def setUpZope(self, app, configurationContext):
         gsm = getGlobalSiteManager()
         gsm.registerUtility(MockAVScanner())
 
 
-AVMOCK_FIXTURE = AVMockFixture()
+AVMOCK_DX_FIXTURE = AVMockFixture(name="AVMOCK_DX_Fixture")
+AVMOCK_AT_FIXTURE = AVMockFixture(bases=(AV_AT_FIXTURE, ), name="AVMOCK_AT_Fixture")
 
 AV_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(AV_FIXTURE, ), name="AVFixture:Integration")
+    bases=(AV_DX_FIXTURE, ), name="AVFixture:Integration")
 AV_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(AV_FIXTURE, ), name="AVFixture:Functional")
+    bases=(AV_DX_FIXTURE, ), name="AVFixture:Functional")
 AVMOCK_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(AVMOCK_FIXTURE, ), name="AVMockFixture:Integration")
-AVMOCK_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(AVMOCK_FIXTURE, ), name="AVMockFixture:Functional")
+    bases=(AVMOCK_DX_FIXTURE, ), name="AVMockFixture:Integration")
+AVMOCK_AT_FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(AVMOCK_AT_FIXTURE, ), name="AVMockATFixture:Functional")
+AVMOCK_DX_FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(AVMOCK_DX_FIXTURE, ), name="AVMockDXFixture:Functional")
