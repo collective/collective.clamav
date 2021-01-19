@@ -20,7 +20,7 @@ jobs:
       - name: Install ClamAV
         run: |
           sudo apt-get -y install clamav clamav-freshclam clamav-unofficial-sigs
-          sudo freshclam
+          # sudo freshclam
           sudo service clamav-daemon start
       - name: Install geckodriver
         run: |
