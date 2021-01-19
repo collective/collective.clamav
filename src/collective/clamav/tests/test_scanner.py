@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-from zope.component import getUtility
-
 from collective.clamav.interfaces import IAVScanner
 from collective.clamav.scanner import ScanError
-from collective.clamav.testing import EICAR
 from collective.clamav.testing import AV_INTEGRATION_TESTING
+from collective.clamav.testing import EICAR
+from zope.component import getUtility
 
 import unittest
 

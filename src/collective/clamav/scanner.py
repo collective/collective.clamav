@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-import clamd
-
+from collective.clamav.interfaces import IAVScanner
+from six import BytesIO
 from zope.interface import implementer
 
-from collective.clamav.interfaces import IAVScanner
-
-from six import BytesIO
+import clamd
 
 
 class ScanError(Exception):

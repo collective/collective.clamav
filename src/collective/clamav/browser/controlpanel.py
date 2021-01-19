@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from plone.app.registry.browser import controlpanel
 from collective.clamav import _
 from collective.clamav.interfaces import IAVScannerSettings
+from plone.app.registry.browser import controlpanel
 
 
 class ClamavControlPanelForm(controlpanel.RegistryEditForm):
@@ -10,10 +10,10 @@ class ClamavControlPanelForm(controlpanel.RegistryEditForm):
     description = _(u"""""")
 
     def updateFields(self):
-            super(ClamavControlPanelForm, self).updateFields()
+        super(ClamavControlPanelForm, self).updateFields()
 
     def updateWidgets(self):
-            super(ClamavControlPanelForm, self).updateWidgets()
+        super(ClamavControlPanelForm, self).updateWidgets()
 
 
 class ClamavControlPanelView(controlpanel.ControlPanelFormWrapper):

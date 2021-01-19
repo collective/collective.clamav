@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-from os.path import dirname, join
-from io import BytesIO
-
+from collective.clamav import tests
 from collective.clamav.testing import EICAR
 from collective.clamav.testing import AVMOCK_FUNCTIONAL_TESTING  # noqa
-from collective.clamav import tests
-
-from plone.testing.z2 import Browser
+from io import BytesIO
+from os.path import dirname
+from os.path import join
 from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, TEST_USER_PASSWORD
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import TEST_USER_PASSWORD
+from plone.testing.z2 import Browser
 
 import unittest
 

@@ -1,22 +1,20 @@
 # -*- coding: utf-8 -*-
+from collective.clamav.interfaces import IAVScanner
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
-from plone.testing import z2
-
-import collective.clamav
-
-from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.testing import z2
 from zope.component import getGlobalSiteManager
 from zope.configuration import xmlconfig
 from zope.interface import implementer
 
-from collective.clamav.interfaces import IAVScanner
 import base64
+import collective.clamav
 
 
 class CollectiveClamavLayer(PloneSandboxLayer):
