@@ -26,7 +26,7 @@ jobs:
           wget "https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz"
           tar xfz geckodriver-v0.24.0-linux64.tar.gz
           sudo mv geckodriver /usr/local/bin
-          DISPLAY=":99.0" Xvfb :99 -screen 0 1024x768x24
+          Xvfb :99 -screen 0 1024x768x24 &
           sleep 3
       - name: pip install
         run: pip install -r requirements.txt -c constraints_plone52.txt
