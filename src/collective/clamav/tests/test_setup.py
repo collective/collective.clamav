@@ -6,6 +6,14 @@ from plone import api
 import unittest
 
 
+try:
+    from Products.CMFPlone.utils import get_installer
+except ImportError:  # Plone < 5.1
+    HAS_INSTALLER = False
+else:
+    HAS_INSTALLER = True
+
+
 class TestSetup(unittest.TestCase):
     """Test that collective.clamav is properly installed."""
 
@@ -14,12 +22,17 @@ class TestSetup(unittest.TestCase):
     def setUp(self):
         """Custom shared utility setup for tests."""
         self.portal = self.layer['portal']
-        self.installer = api.portal.get_tool('portal_quickinstaller')
 
     def test_product_installed(self):
         """Test if collective.clamav is installed."""
-        self.assertTrue(self.installer.isProductInstalled(
-            'collective.clamav'))
+        if HAS_INSTALLER:
+            qi = get_installer(self.portal)
+            installed = qi.is_product_installed('collective.clamav')
+        else:
+            installer = api.portal.get_tool('portal_quickinstaller')
+            installed = installer.isProductInstalled(
+                'collective.clamav')
+        self.assertTrue(installed)
 
     def test_browserlayer(self):
         """Test that ICollectiveClamavLayer is registered."""
@@ -35,13 +48,18 @@ class TestUninstall(unittest.TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
-        self.installer = api.portal.get_tool('portal_quickinstaller')
-        self.installer.uninstallProducts(['collective.clamav'])
+        if HAS_INSTALLER:
+            qi = get_installer(self.portal)
+            qi.uninstall_product('collective.clamav')
+            self.installed = qi.is_product_installed('collective.clamav')
+        else:
+            installer = api.portal.get_tool('portal_quickinstaller')
+            installer.uninstallProducts(['collective.clamav'])
+            self.installed = installer.isProductInstalled('collective.clamav')
 
     def test_product_uninstalled(self):
         """Test if collective.clamav is cleanly uninstalled."""
-        self.assertFalse(self.installer.isProductInstalled(
-            'collective.clamav'))
+        self.assertFalse(self.installed)
 
     def test_browserlayer_removed(self):
         """Test that ICollectiveClamavLayer is removed."""

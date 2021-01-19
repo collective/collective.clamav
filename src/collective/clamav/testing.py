@@ -13,7 +13,6 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 from zope.component import getGlobalSiteManager
 from zope.configuration import xmlconfig
-from zope.interface import implements
 from zope.interface import implementer
 
 from collective.clamav.interfaces import IAVScanner
@@ -63,6 +62,7 @@ s = """
     QVJELUFOVElWSVJVUy1URVNU\nLUZJTEUhJEgrSCo=\n"""
 
 EICAR = base64.b64decode(s)
+
 
 @implementer(IAVScanner)
 class MockAVScanner(object):

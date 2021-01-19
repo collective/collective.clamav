@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from os.path import dirname, join
-from io import StringIO
+from io import BytesIO
 
 from collective.clamav.testing import EICAR
 from collective.clamav.testing import AVMOCK_FUNCTIONAL_TESTING  # noqa
@@ -16,7 +16,7 @@ import unittest
 def getFileData(filename):
     """ return a file object from the test data folder """
     filename = join(dirname(tests.__file__), 'data', filename)
-    return open(filename, 'r').read()
+    return open(filename, 'rb').read()
 
 
 class TestIntegration(unittest.TestCase):
@@ -33,7 +33,7 @@ class TestIntegration(unittest.TestCase):
 
         self.browser = Browser(self.layer['app'])
         self.browser.addHeader(
-            'Authorization', 'Basic %s:%s' % (
+            'Authorization', 'Basic {0}:{1}'.format(
                 TEST_USER_NAME,
                 TEST_USER_PASSWORD,
             ),
@@ -49,8 +49,8 @@ class TestIntegration(unittest.TestCase):
         self.browser.open(
             self.portal.absolute_url() + '/virus-folder/++add++File')
         control = self.browser.getControl(name='form.widgets.file')
-        control.filename = 'virus.txt'
-        control.value = StringIO(EICAR)
+        with BytesIO(EICAR) as virus_file:
+            control.add_file(virus_file, 'text/plain', 'virus.txt')
         self.browser.getControl('Save').click()
         self.assertFalse('Eicar-Test-Signature' not in self.browser.contents)
 
@@ -58,8 +58,8 @@ class TestIntegration(unittest.TestCase):
         self.browser.open(
             self.portal.absolute_url() + '/virus-folder/++add++File')
         control = self.browser.getControl(name='form.widgets.file')
-        control.filename = 'nonvirus.txt'
-        control.value = StringIO('Not a virus')
+        with BytesIO(b'Not a virus') as clean_file:
+            control.add_file(clean_file, 'text/plain', 'nonvirus.txt')
         self.browser.getControl('Save').click()
         self.assertTrue('Item created' in self.browser.contents)
 
@@ -70,8 +70,8 @@ class TestIntegration(unittest.TestCase):
             self.portal.absolute_url() + '/virus-folder/++add++Image')
         control = self.browser.getControl(name='form.widgets.image')
         image_data = getFileData('image.png')
-        control.filename = 'virus.png'
-        control.value = StringIO(image_data + EICAR)
+        with BytesIO(image_data + EICAR) as virus_image:
+            control.add_file(virus_image, 'image/png', 'virus.png')
         self.browser.getControl('Save').click()
 
         self.assertFalse('Changes saved' in self.browser.contents)
@@ -81,7 +81,7 @@ class TestIntegration(unittest.TestCase):
         self.browser.open(
             self.portal.absolute_url() + '/virus-folder/++add++Image')
         control = self.browser.getControl(name='form.widgets.image')
-        control.filename = 'nonvirus.png'
-        control.value = StringIO(image_data)
+        with BytesIO(image_data) as clean_image:
+            control.add_file(clean_image, 'image/png', 'nonvirus.png')
         self.browser.getControl('Save').click()
         self.assertTrue('Item created' in self.browser.contents)
