@@ -17,7 +17,8 @@ jobs:
         run: |
           sudo apt-get -y install clamav clamav-freshclam clamav-unofficial-sigs
           # sudo freshclam
-          # sudo service clamav-daemon start
+          sudo echo -e "TCPSocket 3310\nLocalSocket /tmp/clamd.socket\n$(cat /etc/clamav/clamd.conf)" > /etc/clamav/clamd.conf
+          sudo systemctl reload clamav-daemon.service
       - name: Install geckodriver
         run: |
           wget "https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz"
