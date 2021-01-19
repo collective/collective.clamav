@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
-import logging
-
 from App.config import getConfiguration
-from collective.clamav.interfaces import IAVScanner, IAVScannerSettings
+from collective.clamav.interfaces import IAVScanner
+from collective.clamav.interfaces import IAVScannerSettings
 from collective.clamav.scanner import ScanError
 from plone.registry.interfaces import IRegistry
 from Products.validation.interfaces.IValidator import IValidator
 from z3c.form.interfaces import NOT_CHANGED
 from zope.component import getUtility
-from zope.interface import Invalid, implementer
+from zope.interface import implementer
+from zope.interface import Invalid
+
+import logging
+
 
 logger = logging.getLogger('collective.clamav')
 

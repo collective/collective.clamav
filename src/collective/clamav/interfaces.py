@@ -2,10 +2,11 @@
 """Module where all interfaces, events and exceptions live."""
 
 from collective.clamav import _
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from zope.interface import Interface
 from zope import schema
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+from zope.interface import Interface
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 class ICollectiveClamavLayer(IDefaultBrowserLayer):
@@ -14,7 +15,7 @@ class ICollectiveClamavLayer(IDefaultBrowserLayer):
 
 clamdConnectionType = SimpleVocabulary(
     [SimpleTerm(title=u'Unix Socket', value='socket'),
-     SimpleTerm(title=u'Network', value='net')]
+     SimpleTerm(title=u'Network', value='net')],
 )
 
 
