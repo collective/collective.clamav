@@ -57,7 +57,7 @@ class TestScanner(unittest.TestCase):
 
         self.assertEqual(
             self.scanner.scanBuffer(EICAR, type='net'),
-            'Eicar-Test-Signature')
+            'Win.Test.EICAR_HDB-1')
 
         # And a normal file...
         self.assertEqual(
@@ -79,7 +79,7 @@ class TestScanner(unittest.TestCase):
             self.scanner.scanBuffer(
                 EICAR, type='socket',
                 socketpath='/tmp/clamd.socket'),
-            'Eicar-Test-Signature')
+            'Win.Test.EICAR_HDB-1')
 
         # And a normal file...
         self.assertEqual(
