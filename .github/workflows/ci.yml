@@ -17,6 +17,7 @@ jobs:
         run: |
           sudo apt-get -y install clamav clamav-daemon clamav-freshclam clamav-unofficial-sigs
           # sudo freshclam
+          dpkg-reconfigure -fnoninteractive clamav-daemon
           sudo bash -c 'echo -e "TCPSocket 3310\nLocalSocket /tmp/clamd.socket\n$(cat /etc/clamav/clamd.conf)" > /etc/clamav/clamd.conf'
           sudo systemctl start clamav-daemon.service
           sudo systemctl status clamav-daemon.service
