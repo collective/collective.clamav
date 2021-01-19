@@ -61,7 +61,7 @@ class TestScanner(unittest.TestCase):
 
         # And a normal file...
         self.assertEqual(
-            self.scanner.scanBuffer('Not a virus', type='net'),
+            self.scanner.scanBuffer(b'Not a virus', type='net'),
             None)
 
         # Test timeout
@@ -84,7 +84,7 @@ class TestScanner(unittest.TestCase):
         # And a normal file...
         self.assertEqual(
             self.scanner.scanBuffer(
-                'Not a virus', type='socket',
+                b'Not a virus', type='socket',
                 socketpath='/tmp/clamd.socket',
             ), None)
 
