@@ -32,3 +32,10 @@ jobs:
         run: buildout -t 10 -c test_plone52.cfg
       - name: Run tests
         run: bin/test --all
+      - name: Coverage
+        run: |
+          bin/createcoverage --output-dir=parts/test/coverage
+          bin/pip install coverage
+          bin/python -m coverage.pickle2json
+          bin/pip install -q coveralls
+          coveralls
