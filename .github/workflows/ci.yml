@@ -7,7 +7,6 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.8]
-        plone-version: [5.2]
 
     steps:
       # git checkout
@@ -22,8 +21,6 @@ jobs:
       # python install
       - name: pip install
         run: pip install -r requirements.txt -c constraints_plone52.txt
-      - name: choose Plone version
-        run: sed -ie "s#plone-x.x.x.cfg#plone-${{ matrix.plone-version }}.x.cfg#" ci.cfg
 
       # buildout
       - name: buildout
