@@ -55,14 +55,12 @@ class TestScanner(unittest.TestCase):
         """ Try a virus through the net.
         """
 
-        self.assertEqual(
-            self.scanner.scanBuffer(EICAR, type='net'),
-            'Win.Test.EICAR_HDB-1')
+        self.assertIsNotNone(
+            self.scanner.scanBuffer(EICAR, type='net'))
 
         # And a normal file...
-        self.assertEqual(
-            self.scanner.scanBuffer(b'Not a virus', type='net'),
-            None)
+        self.assertIsNone(
+            self.scanner.scanBuffer(b'Not a virus', type='net'))
 
         # Test timeout
         self.assertRaises(
@@ -75,18 +73,17 @@ class TestScanner(unittest.TestCase):
         """ Try a virus through a unix socket.
         """
 
-        self.assertEqual(
+        self.assertIsNotNone(
             self.scanner.scanBuffer(
                 EICAR, type='socket',
-                socketpath='/tmp/clamd.socket'),
-            'Win.Test.EICAR_HDB-1')
+                socketpath='/tmp/clamd.socket'))
 
         # And a normal file...
-        self.assertEqual(
+        self.assertIsNone(
             self.scanner.scanBuffer(
                 b'Not a virus', type='socket',
                 socketpath='/tmp/clamd.socket',
-            ), None)
+            ))
 
         # Test timeout
         self.assertRaises(
