@@ -35,4 +35,4 @@ jobs:
           coverage run --include=src/* bin/test --all
           coverage json --include=src/*
           pip install -q coveralls
-          coveralls
+          coveralls --service=github
