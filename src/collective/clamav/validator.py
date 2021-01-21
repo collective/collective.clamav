@@ -22,7 +22,7 @@ def _scanBuffer(buffer):
         return ''
 
     registry = getUtility(IRegistry)
-    settings = registry.forInterface(IAVScannerSettings)
+    settings = registry.forInterface(IAVScannerSettings)  # noqa: P001
     if settings is None:
         return ''
     scanner = getUtility(IAVScanner)
@@ -50,7 +50,7 @@ class ClamavValidator:
         self.name = name
 
     def __call__(self, value, *args, **kwargs):
-        if hasattr(value, 'seek'):
+        if hasattr(value, 'seek'):  # noqa: P002
             # when submitted a new file 'value' is a
             # 'ZPublisher.HTTPRequest.FileUpload'
 
@@ -59,20 +59,19 @@ class ClamavValidator:
                 return True
 
             value.seek(0)
-            # TODO this reads the entire file into memory, there should be
+            # TODO this reads the entire file into memory, there should be  # noqa: T000,E501
             # a smarter way to do this
             content = value.read()
             result = ''
             try:
                 result = _scanBuffer(content)
             except ScanError as e:
-                logger.error('ScanError %s on %s.' % (e, value.filename))
+                logger.error('ScanError {0} on {1}.'.format(e, value.filename))
                 return 'There was an error while checking the file for ' \
                        'viruses: Please contact your system administrator.'
 
             if result:
-                return 'Validation failed, file is virus-infected. (%s)' % \
-                       (result)
+                return 'Validation failed, file is virus-infected. ({0})'.format(result)  # noqa: E501
             else:
                 # mark the file upload instance as already checked
                 value._validate_isVirusFree = True
@@ -104,21 +103,20 @@ else:
             if value is NOT_CHANGED:
                 return
 
-            # TODO this reads the entire file into memory, there should be
+            # TODO this reads the entire file into memory, there should be  # noqa: T000,E501
             # a smarter way to do this
             result = ''
             try:
                 result = _scanBuffer(value.data)
             except ScanError as e:
-                logger.error('ScanError %s on %s.' % (e, value.filename))
+                logger.error('ScanError {0} on {1}.'.format(e, value.filename))
                 raise Invalid('There was an error while checking '
                               'the file for viruses: Please '
                               'contact your system administrator.')
 
             if result:
-                raise Invalid('Validation failed, file '
-                              'is virus-infected. (%s)' %
-                              (result))
+                raise Invalid(
+                    'Validation failed, file is virus-infected. (i{0})'.format(result))  # noqa: E501
             else:
                 # mark the file instance as already checked
                 value._validate_isVirusFree = True

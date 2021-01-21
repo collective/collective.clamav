@@ -29,8 +29,8 @@ jobs:
         run: bin/test --all
       - name: Coverage
         run: |
-          bin/createcoverage --output-dir=parts/test/coverage
           bin/pip install coverage
-          bin/python -m coverage.pickle2json
+          coverage run bin/test --all
+          coverage json -i
           bin/pip install -q coveralls
           coveralls

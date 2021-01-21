@@ -92,7 +92,7 @@ class AVFixture(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'collective.clamav:default')
         setRoles(portal, TEST_USER_ID, ['Manager'])
-        portal.invokeFactory('Folder', 'virus-folder')
+        portal.invokeFactory('Folder', 'virus-folder')  # noqa: P001
         setRoles(portal, TEST_USER_ID, ['Member'])
 
 
