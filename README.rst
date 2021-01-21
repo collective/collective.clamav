@@ -6,8 +6,11 @@
 collective.clamav
 =================
 
-.. image:: https://travis-ci.org/collective/collective.clamav.svg?branch=master
-    :target: https://travis-ci.org/collective/collective.clamav
+.. image:: https://github.com/collective/collective.clamav/workflows/collective.clamav%20CI/badge.svg
+    :target: https://github.com/collective/collective.clamav/actions?query=workflow%3A%22collective.clamav+CI%22
+
+.. image:: https://coveralls.io/repos/github/collective/collective.clamav/badge.svg?branch=fix_tests_plone52
+    :target: https://coveralls.io/github/collective/collective.clamav?branch=fix_tests_plone52
 
 A product providing clamav antivirus integration for Plone sites with AT and Dexterity content types.
 It does that by defining a validator which could be used with any content
