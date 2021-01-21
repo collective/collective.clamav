@@ -29,8 +29,8 @@ jobs:
         run: bin/test --all
       - name: Coverage
         run: |
-          bin/pip install coverage
+          pip install coverage
           coverage run bin/test --all
           coverage json -i
-          bin/pip install -q coveralls
+          pip install -q coveralls
           coveralls
