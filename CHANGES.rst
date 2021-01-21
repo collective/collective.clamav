@@ -11,6 +11,8 @@ Changelog
 - Added a test for value NOT_CHANGED to the validator module because
   of a change in converter.py of plone.formwidget.namedfile [Andreas Mantke]
 - isort and flake8 fixes in validator module [Andreas Mantke]
+- Fix tests for Plone 5.2, discontinue Travis and switch to Github Actions
+  [tschorr]
 
 
 
