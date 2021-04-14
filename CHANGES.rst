@@ -4,7 +4,11 @@ Changelog
 3.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix querying the registry for the case when collective.clamav is not installed,
+  properly remove registry settings in uninstall step.
+  [tschorr]
+- Add a flag to enable/disable virus scanning in the configlet.
+  [tschorr]
 
 
 3.0.0 (2021-01-25)

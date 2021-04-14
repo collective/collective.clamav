@@ -1,0 +1,17 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:i18n="http://namespaces.zope.org/i18n"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  i18n_domain="collective.clamav">
+
+  <genericsetup:upgradeStep
+      title="Add clamav_enabled property"
+      description="Add a boolean property to the configlet that allows to disable virus scanning."
+      source="1000"
+      destination="1001"
+      handler="collective.clamav.upgrades.upgrade_site"
+      sortkey="1"
+      profile="collective.clamav:default"
+      />
+
+</configure>

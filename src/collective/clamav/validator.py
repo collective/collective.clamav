@@ -22,8 +22,11 @@ def _scanBuffer(buffer):
         return ''
 
     registry = getUtility(IRegistry)
-    settings = registry.forInterface(IAVScannerSettings)  # noqa: P001
-    if settings is None:
+    try:
+        settings = registry.forInterface(IAVScannerSettings)  # noqa: P001
+    except KeyError:  # Product is not installed
+        return ''
+    if not settings.clamav_enabled:
         return ''
     scanner = getUtility(IAVScanner)
 
