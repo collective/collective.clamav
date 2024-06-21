@@ -63,7 +63,7 @@ EICAR = base64.b64decode(s)
 
 @implementer(IAVScanner)
 class MockAVScanner:
-    """Mock objects to run tests withoud clamav present."""
+    """Mock objects to run tests without clamav present."""
 
     def ping(self, type, **kwargs):
         """ """

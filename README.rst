@@ -40,7 +40,7 @@ add the *isVirusFree* validator to your FileField(s). For instance::
       )
 
 If you create custom Dexterity content types add only the necessary import statement to the
-module and all plone.namedfile fields were automatically scaned::
+module and all plone.namedfile fields were automatically scanned::
 
     from Products.validation import V_REQUIRED)
 
