@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.clamav.interfaces import IAVScanner
 from collective.clamav.scanner import ScanError
 from collective.clamav.testing import AV_INTEGRATION_TESTING

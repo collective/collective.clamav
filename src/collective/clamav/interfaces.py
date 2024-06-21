@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Module where all interfaces, events and exceptions live."""
 
 from collective.clamav import _
@@ -14,8 +13,8 @@ class ICollectiveClamavLayer(IDefaultBrowserLayer):
 
 
 clamdConnectionType = SimpleVocabulary(
-    [SimpleTerm(title=u'Unix Socket', value='socket'),
-     SimpleTerm(title=u'Network', value='net')],
+    [SimpleTerm(title='Unix Socket', value='socket'),
+     SimpleTerm(title='Network', value='net')],
 )
 
 
@@ -23,35 +22,35 @@ class IAVScannerSettings(Interface):
     """ Schema for the clamav settings
     """
     clamav_connection = schema.Choice(
-        title=_(u'Connection type to clamd'),
-        description=_(u'Choose whether clamd is accessible through local '
-                      u'UNIX sockets or network.'),
+        title=_('Connection type to clamd'),
+        description=_('Choose whether clamd is accessible through local '
+                      'UNIX sockets or network.'),
         vocabulary=clamdConnectionType)
 
     clamav_socket = schema.ASCIILine(
-        title=_(u'Clamd local socket file'),
-        description=_(u'If connected to clamd through local UNIX sockets, '
-                      u'the path to the local socket file.'),
+        title=_('Clamd local socket file'),
+        description=_('If connected to clamd through local UNIX sockets, '
+                      'the path to the local socket file.'),
         default='/var/run/clamd',
         required=True)
 
-    clamav_host = schema.ASCIILine(title=_(u'Scanner host'),
-                                   description=_(u'If connected to clamd '
-                                                 u'through the network, '
-                                                 u'the host running clamd.'),
+    clamav_host = schema.ASCIILine(title=_('Scanner host'),
+                                   description=_('If connected to clamd '
+                                                 'through the network, '
+                                                 'the host running clamd.'),
                                    default='localhost',
                                    required=True)
 
-    clamav_port = schema.Int(title=_(u'Scanner port'),
-                             description=_(u'If connected to clamd '
-                                           u'through the network, the '
-                                           u'port on which clamd listens.'),
+    clamav_port = schema.Int(title=_('Scanner port'),
+                             description=_('If connected to clamd '
+                                           'through the network, the '
+                                           'port on which clamd listens.'),
                              default=3310,
                              required=True)
 
-    clamav_timeout = schema.Int(title=_(u'Timeout'),
-                                description=_(u'The timeout in seconds for '
-                                              u'communication with clamd.'),
+    clamav_timeout = schema.Int(title=_('Timeout'),
+                                description=_('The timeout in seconds for '
+                                              'communication with clamd.'),
                                 default=120,
                                 required=True)
 

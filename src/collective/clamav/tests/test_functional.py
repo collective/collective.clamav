@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.clamav import tests
 from collective.clamav.testing import EICAR
 from collective.clamav.testing import AVMOCK_FUNCTIONAL_TESTING  # noqa
@@ -34,7 +33,7 @@ class TestIntegration(unittest.TestCase):
 
         self.browser = Browser(self.layer['app'])
         self.browser.addHeader(
-            'Authorization', 'Basic {0}:{1}'.format(
+            'Authorization', 'Basic {}:{}'.format(
                 TEST_USER_NAME,
                 TEST_USER_PASSWORD,
             ),

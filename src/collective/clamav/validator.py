@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from App.config import getConfiguration
 from collective.clamav.interfaces import IAVScanner
 from collective.clamav.interfaces import IAVScannerSettings
@@ -66,12 +65,12 @@ class ClamavValidator:
             try:
                 result = _scanBuffer(content)
             except ScanError as e:
-                logger.error('ScanError {0} on {1}.'.format(e, value.filename))
+                logger.error(f'ScanError {e} on {value.filename}.')
                 return 'There was an error while checking the file for ' \
                        'viruses: Please contact your system administrator.'
 
             if result:
-                return 'Validation failed, file is virus-infected. ({0})'.format(result)  # noqa: E501
+                return f'Validation failed, file is virus-infected. ({result})'  # noqa: E501
             else:
                 # mark the file upload instance as already checked
                 value._validate_isVirusFree = True
@@ -94,7 +93,7 @@ else:
         """z3c.form validator to confirm a file upload is virus-free."""
 
         def validate(self, value):
-            super(Z3CFormclamavValidator, self).validate(value)
+            super().validate(value)
 
             if getattr(value, '_validate_isVirusFree', False) or value is None:
                 # validation is called multiple times for the same file upload
@@ -109,14 +108,14 @@ else:
             try:
                 result = _scanBuffer(value.data)
             except ScanError as e:
-                logger.error('ScanError {0} on {1}.'.format(e, value.filename))
+                logger.error(f'ScanError {e} on {value.filename}.')
                 raise Invalid('There was an error while checking '
                               'the file for viruses: Please '
                               'contact your system administrator.')
 
             if result:
                 raise Invalid(
-                    'Validation failed, file is virus-infected. (i{0})'.format(result))  # noqa: E501
+                    f'Validation failed, file is virus-infected. (i{result})')  # noqa: E501
             else:
                 # mark the file instance as already checked
                 value._validate_isVirusFree = True

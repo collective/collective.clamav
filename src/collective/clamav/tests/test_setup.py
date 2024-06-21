@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Setup tests for this package."""
 from collective.clamav.testing import COLLECTIVE_CLAMAV_INTEGRATION_TESTING  # noqa
 from plone import api

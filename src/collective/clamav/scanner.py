@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 from collective.clamav.interfaces import IAVScanner
-from six import BytesIO
+from io import BytesIO
 from zope.interface import implementer
 
 import clamd
@@ -11,7 +10,7 @@ class ScanError(Exception):
     """
 
     def __init__(self, message):
-        super(ScanError, self).__init__(message)
+        super().__init__(message)
 
 
 def _make_clamd(type, **kwargs):
@@ -28,7 +27,7 @@ def _make_clamd(type, **kwargs):
 
 
 @implementer(IAVScanner)
-class ClamavScanner(object):
+class ClamavScanner:
     """
     """
 
