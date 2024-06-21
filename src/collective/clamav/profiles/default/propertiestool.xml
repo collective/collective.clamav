@@ -1,11 +1,28 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <object name="portal_properties">
- <object name="clamav_properties" meta_type="Plone Property Sheet" purge="False">
-  <property name="title">clamav Properties</property>
-  <property name="clamav_connection" type="string" purge="False">net</property>
-  <property name="clamav_socket" type="string" purge="False">/var/run/clamd</property>
-  <property name="clamav_host" type="string" purge="False">localhost</property>
-  <property name="clamav_port" type="string">3310</property>
-  <property name="clamav_timeout" type="int" purge="False">120</property>
- </object>
+  <object meta_type="Plone Property Sheet"
+          name="clamav_properties"
+          purge="False"
+  >
+    <property name="title">clamav Properties</property>
+    <property name="clamav_connection"
+              purge="False"
+              type="string"
+    >net</property>
+    <property name="clamav_socket"
+              purge="False"
+              type="string"
+    >/var/run/clamd</property>
+    <property name="clamav_host"
+              purge="False"
+              type="string"
+    >localhost</property>
+    <property name="clamav_port"
+              type="string"
+    >3310</property>
+    <property name="clamav_timeout"
+              purge="False"
+              type="int"
+    >120</property>
+  </object>
 </object>

@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <layers>
-  <layer
-      name="collective.clamav"
-      interface="collective.clamav.interfaces.ICollectiveClamavLayer"
-      />
+  <layer interface="collective.clamav.interfaces.ICollectiveClamavLayer"
+         name="collective.clamav"
+  />
 </layers>
