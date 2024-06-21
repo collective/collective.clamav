@@ -8,4 +8,5 @@ _ = MessageFactory('collective.clamav')
 
 from collective.clamav.validator import ClamavValidator  # noqa
 
+
 validation.register(ClamavValidator('isVirusFree'))

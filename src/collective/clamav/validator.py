@@ -81,10 +81,10 @@ class ClamavValidator:
 
 
 try:
-    from z3c.form import validator
-    from plone.namedfile.interfaces import INamedField
     from plone.formwidget.namedfile.interfaces import INamedFileWidget
     from plone.formwidget.namedfile.validator import NamedFileWidgetValidator
+    from plone.namedfile.interfaces import INamedField
+    from z3c.form import validator
 except ImportError:
     pass
 else:

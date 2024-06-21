@@ -35,8 +35,7 @@ class TestSetup(unittest.TestCase):
 
     def test_browserlayer(self):
         """Test that ICollectiveClamavLayer is registered."""
-        from collective.clamav.interfaces import (
-            ICollectiveClamavLayer)
+        from collective.clamav.interfaces import ICollectiveClamavLayer
         from plone.browserlayer import utils
         self.assertIn(ICollectiveClamavLayer, utils.registered_layers())
 

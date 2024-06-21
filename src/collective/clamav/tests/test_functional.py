@@ -1,6 +1,6 @@
 from collective.clamav import tests
-from collective.clamav.testing import EICAR
 from collective.clamav.testing import AVMOCK_FUNCTIONAL_TESTING  # noqa
+from collective.clamav.testing import EICAR
 from io import BytesIO
 from os.path import dirname
 from os.path import join
