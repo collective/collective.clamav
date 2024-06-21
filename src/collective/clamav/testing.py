@@ -27,7 +27,7 @@ class CollectiveClamavLayer(PloneSandboxLayer):
         self.loadZCML(package=collective.clamav)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'collective.clamav:default')
+        applyProfile(portal, "collective.clamav:default")
 
 
 COLLECTIVE_CLAMAV_FIXTURE = CollectiveClamavLayer()
@@ -35,13 +35,13 @@ COLLECTIVE_CLAMAV_FIXTURE = CollectiveClamavLayer()
 
 COLLECTIVE_CLAMAV_INTEGRATION_TESTING = IntegrationTesting(
     bases=(COLLECTIVE_CLAMAV_FIXTURE,),
-    name='CollectiveClamavLayer:IntegrationTesting',
+    name="CollectiveClamavLayer:IntegrationTesting",
 )
 
 
 COLLECTIVE_CLAMAV_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(COLLECTIVE_CLAMAV_FIXTURE,),
-    name='CollectiveClamavLayer:FunctionalTesting',
+    name="CollectiveClamavLayer:FunctionalTesting",
 )
 
 
@@ -51,7 +51,7 @@ COLLECTIVE_CLAMAV_ACCEPTANCE_TESTING = FunctionalTesting(
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         z2.ZSERVER_FIXTURE,
     ),
-    name='CollectiveClamavLayer:AcceptanceTesting',
+    name="CollectiveClamavLayer:AcceptanceTesting",
 )
 
 s = """
@@ -63,36 +63,35 @@ EICAR = base64.b64decode(s)
 
 @implementer(IAVScanner)
 class MockAVScanner:
-    """Mock objects to run tests withoud clamav present.
-    """
+    """Mock objects to run tests withoud clamav present."""
 
     def ping(self, type, **kwargs):
-        """
-        """
+        """ """
         return True
 
     def scanBuffer(self, buffer, type, **kwargs):
-        """
-        """
+        """ """
         if EICAR in buffer:
-            return 'Eicar-Test-Signature FOUND'
+            return "Eicar-Test-Signature FOUND"
         return None
 
 
 class AVFixture(PloneSandboxLayer):
 
-    defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE, )
+    defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
         import collective.clamav
-        xmlconfig.file('configure.zcml', collective.clamav,
-                       context=configurationContext)
+
+        xmlconfig.file(
+            "configure.zcml", collective.clamav, context=configurationContext
+        )
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'collective.clamav:default')
-        setRoles(portal, TEST_USER_ID, ['Manager'])
-        portal.invokeFactory('Folder', 'virus-folder')  # noqa: P001
-        setRoles(portal, TEST_USER_ID, ['Member'])
+        applyProfile(portal, "collective.clamav:default")
+        setRoles(portal, TEST_USER_ID, ["Manager"])
+        portal.invokeFactory("Folder", "virus-folder")  # noqa: P001
+        setRoles(portal, TEST_USER_ID, ["Member"])
 
 
 AV_FIXTURE = AVFixture()
@@ -100,7 +99,7 @@ AV_FIXTURE = AVFixture()
 
 class AVMockFixture(PloneSandboxLayer):
 
-    defaultBases = (AV_FIXTURE, )
+    defaultBases = (AV_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
         gsm = getGlobalSiteManager()
@@ -110,10 +109,14 @@ class AVMockFixture(PloneSandboxLayer):
 AVMOCK_FIXTURE = AVMockFixture()
 
 AV_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(AV_FIXTURE, ), name='AVFixture:Integration')
+    bases=(AV_FIXTURE,), name="AVFixture:Integration"
+)
 AV_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(AV_FIXTURE, ), name='AVFixture:Functional')
+    bases=(AV_FIXTURE,), name="AVFixture:Functional"
+)
 AVMOCK_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(AVMOCK_FIXTURE, ), name='AVMockFixture:Integration')
+    bases=(AVMOCK_FIXTURE,), name="AVMockFixture:Integration"
+)
 AVMOCK_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(AVMOCK_FIXTURE, ), name='AVMockFixture:Functional')
+    bases=(AVMOCK_FIXTURE,), name="AVMockFixture:Functional"
+)

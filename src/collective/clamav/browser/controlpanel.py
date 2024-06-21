@@ -5,7 +5,7 @@ from plone.app.registry.browser import controlpanel
 
 class ClamavControlPanelForm(controlpanel.RegistryEditForm):
     schema = IAVScannerSettings
-    label = _('Clamav Plone Settings')
+    label = _("Clamav Plone Settings")
     description = _("""""")
 
     def updateFields(self):
