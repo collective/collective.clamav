@@ -13,7 +13,6 @@ py_versions = "3.8"
 jobs = [
     "qa",
     "test",
-    "coverage",
     "release_ready",
     "circular",
     ]
