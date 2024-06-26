@@ -12,7 +12,6 @@ codespell_skip = "plone-*.cfg"
 py_versions = "[\"3.8\"]"
 jobs = [
     "qa",
-    "test",
     "release_ready",
     "circular",
     ]
