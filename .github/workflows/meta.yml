@@ -30,7 +30,7 @@ jobs:
     uses: plone/meta/.github/workflows/test.yml@main
     with:
 
-       py-versions: '3.8'
+       py-versions: '["3.8"]'
   release_ready:
     uses: plone/meta/.github/workflows/release_ready.yml@main
   circular:

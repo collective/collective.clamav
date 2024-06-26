@@ -9,7 +9,7 @@ commit-id = "a89af8f2"
 codespell_skip = "plone-*.cfg"
 
 [github]
-py_versions = "3.8"
+py_versions = "[\"3.8\"]"
 jobs = [
     "qa",
     "test",
