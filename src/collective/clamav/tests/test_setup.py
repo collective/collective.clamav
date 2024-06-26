@@ -1,17 +1,15 @@
-# -*- coding: utf-8 -*-
 """Setup tests for this package."""
-from collective.clamav.testing import COLLECTIVE_CLAMAV_INTEGRATION_TESTING  # noqa
-from plone import api
+
+from collective.clamav.testing import COLLECTIVE_CLAMAV_INTEGRATION_TESTING
 
 import unittest
 
 
 try:
+    from plone.base.utils import get_installer
+except ImportError:
+    # Plone 5.2
     from Products.CMFPlone.utils import get_installer
-except ImportError:  # Plone < 5.1
-    HAS_INSTALLER = False
-else:
-    HAS_INSTALLER = True
 
 
 class TestSetup(unittest.TestCase):
@@ -21,24 +19,19 @@ class TestSetup(unittest.TestCase):
 
     def setUp(self):
         """Custom shared utility setup for tests."""
-        self.portal = self.layer['portal']
+        self.portal = self.layer["portal"]
 
     def test_product_installed(self):
         """Test if collective.clamav is installed."""
-        if HAS_INSTALLER:
-            qi = get_installer(self.portal)
-            installed = qi.is_product_installed('collective.clamav')
-        else:
-            installer = api.portal.get_tool('portal_quickinstaller')
-            installed = installer.isProductInstalled(
-                'collective.clamav')
+        qi = get_installer(self.portal)
+        installed = qi.is_product_installed("collective.clamav")
         self.assertTrue(installed)
 
     def test_browserlayer(self):
         """Test that ICollectiveClamavLayer is registered."""
-        from collective.clamav.interfaces import (
-            ICollectiveClamavLayer)
+        from collective.clamav.interfaces import ICollectiveClamavLayer
         from plone.browserlayer import utils
+
         self.assertIn(ICollectiveClamavLayer, utils.registered_layers())
 
 
@@ -47,15 +40,10 @@ class TestUninstall(unittest.TestCase):
     layer = COLLECTIVE_CLAMAV_INTEGRATION_TESTING
 
     def setUp(self):
-        self.portal = self.layer['portal']
-        if HAS_INSTALLER:
-            qi = get_installer(self.portal)
-            qi.uninstall_product('collective.clamav')
-            self.installed = qi.is_product_installed('collective.clamav')
-        else:
-            installer = api.portal.get_tool('portal_quickinstaller')
-            installer.uninstallProducts(['collective.clamav'])
-            self.installed = installer.isProductInstalled('collective.clamav')
+        self.portal = self.layer["portal"]
+        qi = get_installer(self.portal)
+        qi.uninstall_product("collective.clamav")
+        self.installed = qi.is_product_installed("collective.clamav")
 
     def test_product_uninstalled(self):
         """Test if collective.clamav is cleanly uninstalled."""
@@ -65,4 +53,5 @@ class TestUninstall(unittest.TestCase):
         """Test that ICollectiveClamavLayer is removed."""
         from collective.clamav.interfaces import ICollectiveClamavLayer
         from plone.browserlayer import utils
+
         self.assertNotIn(ICollectiveClamavLayer, utils.registered_layers())

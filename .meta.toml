@@ -1,0 +1,17 @@
+# Generated from:
+# https://github.com/plone/meta/tree/main/config/default
+# See the inline comments on how to expand/tweak this configuration file
+[meta]
+template = "default"
+commit-id = "a89af8f2"
+
+[pyproject]
+codespell_skip = "plone-*.cfg"
+
+[github]
+py_versions = "[\"3.8\"]"
+jobs = [
+    "qa",
+    "release_ready",
+    "circular",
+    ]

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from collective.clamav.interfaces import IAVScanner
 from collective.clamav.scanner import ScanError
 from collective.clamav.testing import AV_INTEGRATION_TESTING
@@ -22,74 +21,70 @@ class TestScanner(unittest.TestCase):
         self.scanner = getUtility(IAVScanner)
 
     def test_net_ping(self):
-        """ Test ping with a network connection on localhost 3310
-        """
+        """Test ping with a network connection on localhost 3310"""
 
-        self.assertEqual(self.scanner.ping(type='net'), True)
+        self.assertEqual(self.scanner.ping(type="net"), True)
 
         # Test timeout
         self.assertRaises(
-            ScanError,
-            self.scanner.ping,
-            {'type': 'net', 'timeout': 1.0e-16})
+            ScanError, self.scanner.ping, {"type": "net", "timeout": 1.0e-16}
+        )
 
     def test_unix_socket_ping(self):
-        """ Test ping with a socket connection on /tmp/clamd.socket
+        """Test ping with a socket connection on /tmp/clamd.socket
         which is default on macports clamd. If you use linux just change
         the socketpath
         """
 
         self.assertEqual(
-            self.scanner.ping(type='socket', socketpath='/tmp/clamd.socket'),
-            True)
+            self.scanner.ping(type="socket", socketpath="/tmp/clamd.socket"), True
+        )
 
         # Test timeout
         self.assertRaises(
             ScanError,
             self.scanner.ping,
-            {'type': 'socket',
-             'socketpath': '/tmp/clamd.socket',
-             'timeout': 1.0e-16})
+            {"type": "socket", "socketpath": "/tmp/clamd.socket", "timeout": 1.0e-16},
+        )
 
     def test_net_scanBuffer(self):
-        """ Try a virus through the net.
-        """
+        """Try a virus through the net."""
 
-        self.assertIsNotNone(
-            self.scanner.scanBuffer(EICAR, type='net'))
+        self.assertIsNotNone(self.scanner.scanBuffer(EICAR, type="net"))
 
         # And a normal file...
-        self.assertIsNone(
-            self.scanner.scanBuffer(b'Not a virus', type='net'))
+        self.assertIsNone(self.scanner.scanBuffer(b"Not a virus", type="net"))
 
         # Test timeout
         self.assertRaises(
             ScanError,
             self.scanner.scanBuffer,
-            ('Not a virus', ),
-            {'type': 'net', 'timeout': 1.0e-16})
+            ("Not a virus",),
+            {"type": "net", "timeout": 1.0e-16},
+        )
 
     def test_unix_socket_scanBuffer(self):
-        """ Try a virus through a unix socket.
-        """
+        """Try a virus through a unix socket."""
 
         self.assertIsNotNone(
             self.scanner.scanBuffer(
-                EICAR, type='socket',
-                socketpath='/tmp/clamd.socket'))
+                EICAR, type="socket", socketpath="/tmp/clamd.socket"
+            )
+        )
 
         # And a normal file...
         self.assertIsNone(
             self.scanner.scanBuffer(
-                b'Not a virus', type='socket',
-                socketpath='/tmp/clamd.socket',
-            ))
+                b"Not a virus",
+                type="socket",
+                socketpath="/tmp/clamd.socket",
+            )
+        )
 
         # Test timeout
         self.assertRaises(
             ScanError,
             self.scanner.scanBuffer,
-            ('Not a virus', ),
-            {'type': 'socket',
-             'socketpath': '/tmp/clamd.socket',
-             'timeout': 1.0e-16})
+            ("Not a virus",),
+            {"type": "socket", "socketpath": "/tmp/clamd.socket", "timeout": 1.0e-16},
+        )
