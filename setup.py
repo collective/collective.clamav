@@ -57,8 +57,7 @@ setup(
             # Remove if your package shall be part of coredev.
             # plone_coredev tests as of 2016-04-01.
             "plone.testing>=7.0.2",
-            "plone.app.contenttypes",
-            "plone.app.robotframework[debug]",
+            "plone.app.contenttypes[test]",
             "Products.validation",
         ],
     },

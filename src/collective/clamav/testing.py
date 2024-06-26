@@ -1,6 +1,5 @@
 from collective.clamav.interfaces import IAVScanner
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
-from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -44,15 +43,6 @@ COLLECTIVE_CLAMAV_FUNCTIONAL_TESTING = FunctionalTesting(
     name="CollectiveClamavLayer:FunctionalTesting",
 )
 
-
-COLLECTIVE_CLAMAV_ACCEPTANCE_TESTING = FunctionalTesting(
-    bases=(
-        COLLECTIVE_CLAMAV_FIXTURE,
-        REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE,
-    ),
-    name="CollectiveClamavLayer:AcceptanceTesting",
-)
 
 s = """
     WDVPIVAlQEFQWzRcUFpYNTQoUF4pN0NDKTd9JEVJQ0FSLVNUQU5E
