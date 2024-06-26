@@ -6,7 +6,6 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from plone.testing import z2
 from zope.component import getGlobalSiteManager
 from zope.configuration import xmlconfig
 from zope.interface import implementer

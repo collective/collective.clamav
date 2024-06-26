@@ -1,7 +1,6 @@
 """Setup tests for this package."""
 
 from collective.clamav.testing import COLLECTIVE_CLAMAV_INTEGRATION_TESTING
-from plone import api
 
 import unittest
 
