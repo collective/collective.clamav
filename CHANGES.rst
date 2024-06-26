@@ -4,7 +4,8 @@ Changelog
 4.0.0a1 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Update for Plone 5.2 and Plone 6 on Python 3 only.
+  [ale-rt]
 
 
 3.0.0 (2021-01-25)
