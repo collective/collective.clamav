@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0.0a1 (unreleased)
+4.0.0a1 (2024-06-28)
 --------------------
 
 - Update for Plone 5.2 and Plone 6 on Python 3 only.
