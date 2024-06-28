@@ -15,7 +15,7 @@ long_description = "\n\n".join(
 
 setup(
     name="collective.clamav",
-    version="4.0.0a1",
+    version="4.0.0a2.dev0",
     description="A product providing clamav antivirus integration for Plone Dexterity content types",
     long_description=long_description,
     # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
